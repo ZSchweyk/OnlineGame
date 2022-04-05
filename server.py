@@ -45,7 +45,6 @@ def threaded_client(conn, player):
                 print(f"Received: {data}")
                 print(f"Sending: {reply}")
 
-            # pickle.dumps converts reply from bits back to an object
             conn.sendall(pickle.dumps(reply))
         except:
             break
