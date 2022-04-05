@@ -9,7 +9,7 @@ pygame.display.set_caption("Client")
 clientNumber = 0
 
 
-class Player():
+class Player:
     def __init__(self, x, y, width, height, color):
         self.x = x
         self.y = y
