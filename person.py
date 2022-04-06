@@ -1,11 +1,11 @@
 class Person:
     def __init__(self, name):
         self.name = name
-        self.messages = ["No Message"]
+        self.last_message = ""
 
     def text(self, message: str):
-        self.messages.append(message)
+        self.last_message = message
 
     def get_last_message(self):
-        return f"{self.name}: {self.messages[-1]}"
+        return self.last_message
 
