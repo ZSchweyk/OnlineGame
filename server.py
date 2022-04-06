@@ -2,7 +2,7 @@ import socket
 from _thread import *
 import sys
 from server_ip import ip
-from player import Player
+from person import Person
 import pickle
 
 server = ip
@@ -20,25 +20,24 @@ except socket.error as e:
 s.listen(2)
 print("Waiting for a connection, Server Started")
 
-players = [Player(0, 0, 50, 50, (255, 0, 0)), Player(100, 100, 50, 50, (0, 0, 255))]
+people = [Person("A"), Person("B")]
 
-
-def threaded_client(conn, player):
-    conn.send(pickle.dumps(players[player]))
+def threaded_client(conn, person):
+    conn.send(pickle.dumps(people[person]))
     reply = ""
     while True:
         try:
             data = pickle.loads((conn.recv(2048)))
-            players[player] = data
+            people[person] = data
 
             if not data:
                 print("Disconnected")
                 break
             else:
-                if player == 1:
-                    reply = players[0]
+                if person == 1:
+                    reply = people[0]
                 else:
-                    reply = players[1]
+                    reply = people[1]
 
                 print(f"Received: {data}")
                 print(f"Sending: {reply}")
@@ -51,10 +50,10 @@ def threaded_client(conn, player):
     conn.close()
 
 
-currentPlayer = 0
+current_person = 0
 while True:
     conn, addr = s.accept()
     print(f"Connected to: {addr}")
 
-    start_new_thread(threaded_client, (conn, currentPlayer))
-    currentPlayer += 1
+    start_new_thread(threaded_client, (conn, current_person))
+    current_person += 1

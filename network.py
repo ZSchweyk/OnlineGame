@@ -9,10 +9,10 @@ class Network:
         self.server = ip
         self.port = 5555
         self.addr = (self.server, self.port)
-        self.p = self.connect()
+        self.person = self.connect()
 
-    def getP(self):
-        return self.p
+    def get_person(self):
+        return self.person
 
     def connect(self):
         try:
